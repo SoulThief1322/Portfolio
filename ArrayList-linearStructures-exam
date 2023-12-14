@@ -1,0 +1,123 @@
+using System;
+
+namespace BasicArrayList
+{
+    class StartUp
+    {
+        static void Main(string[] args)
+        {
+
+            ArrayList shopingList = new ArrayList();
+            shopingList.Add(1);
+            shopingList.Add(2);
+            shopingList.Add(3);
+            shopingList.Add(4);
+            shopingList.Add(5);
+            shopingList.Add(6);
+            shopingList.Cut(-1);
+            Console.WriteLine(shopingList.Count);
+            Console.WriteLine(shopingList.CountFreePositions());
+        }
+    }
+    public class ArrayList
+    {
+        private int freePositions = 0;
+        private int count = 0;
+        private const int Initial_Capacity = 2;
+        private int[] items;
+
+        public ArrayList()
+        {
+            this.items = new int[Initial_Capacity];
+        }
+
+        public int Count { get; private set; }
+
+        public void Add(int item)
+        {
+            if (this.Count == this.items.Length)
+            {
+                int[] copy = new int[this.items.Length * 2];
+                for (int i = 0; i < this.items.Length; i++)
+                {
+                    copy[i] = this.items[i];
+                }
+                this.items = copy;
+            }
+
+            this.items[this.Count] = item;
+            this.Count++;
+        }
+
+        public int CountFreePositions()
+        {
+            if( this.items.Length - this.Count > 0)
+                return this.items.Length - this.Count;
+            else return 0;
+
+        }
+        public void Cut(int count)
+        {
+            
+            if (count > this.Count || count < 0)
+            {
+                throw new ArgumentOutOfRangeException("Number is out of range.");
+            }
+            if(count > 0)
+            {
+                for (int i = 0; i < this.Count; i++)
+                {
+                    if (count > 0)
+                    {
+                        this.items[i] = 0;
+                        count--;
+                    }
+                    else
+                        break;
+                }
+                for (int i = 0; i < this.Count; i++)
+                {
+                    if (this.items[i] == 0)
+                    {
+                        for (int j = i + 1; j < this.Count; j++)
+                        {
+                            if (this.items[j] > 0)
+                            {
+                                this.items[i] = this.items[j];
+                                this.items[j] = 0;
+                                break;
+                            }
+                        }
+                    }
+                }
+                for (int i = 0; i < this.Count; i++)
+                {
+                    if (this.items[i] == 0)
+                        count++;
+                }
+                this.Count -= count;
+                int[] copy = this.items.Take(this.Count).ToArray();
+                this.items = copy;
+            }
+            
+        }
+        public int Change(int element, int newElement)
+        {
+            int index = 0;
+            bool check = false;
+            for (int i = 0; i < this.Count; i++)
+            {
+                if (this.items[i] == element)
+                {
+                    this.items[i] = newElement;
+                    index = i;
+                    check = true;
+                    break;
+                }
+            }
+            if (check == true)
+                return index;
+            else return -1;
+        }
+    }
+}
