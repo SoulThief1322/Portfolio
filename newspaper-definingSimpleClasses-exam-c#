@@ -1,0 +1,66 @@
+using Newspaper;
+
+namespace ConsoleApp9
+{
+    public class StartUp
+    {
+        public static void Main(string[] args)
+        {
+            var input = Console.ReadLine().Split(", ");
+            var news = new News(input[0], input[1], input[2]);
+            int commands = int.Parse(Console.ReadLine());
+
+            for(int i = 0; i < commands; i++)
+            {
+                var command = Console.ReadLine().Split(": ");
+                if (command[0] == "Edit")
+                    news.Edit(command[1], news);
+                else if (command[0] == "ChangeWriter")
+                    news.ChangeWriter(command[1], news);
+                else
+                    news.Rename(command[1], news);
+
+            }
+            Console.WriteLine(news.ToString());
+        }
+    }
+    public class News
+    {
+        string title;
+        string text;
+        string writer;
+        public string Title { get; set; }
+        public string Text { get; set; }
+        public string Writer { get; set; }
+
+        public News(string title, string text, string writer)
+        {
+            this.Title = title;
+            this.Text = text;
+            this.Writer = writer;
+        }
+
+        public void Edit(string text, News news)
+        {
+            news.Text = text;
+        }
+        public void ChangeWriter(string writer, News news)
+        {
+            news.Writer = writer;
+        }
+
+        public void Rename(string newTitle, News news)
+        {
+            news.Title = newTitle;
+        }
+
+        public override string ToString()
+        {
+            return Title + " - " + Text + ": " + Writer;
+        }
+    }
+    public class StartUp
+    {
+
+    }
+}
