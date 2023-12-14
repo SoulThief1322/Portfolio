@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.ExceptionServices;
+using System.Text.RegularExpressions;
+
+namespace Objects_and_Classes
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            string[] s = new string[n];
+            SortedDictionary<string, string[]> dict = new SortedDictionary<string, string[]>();
+            for(int i = 0; i < n; i++)
+            {
+                string[] input = Console.ReadLine().Split('|');
+                dict[input[0]] = new string[2];
+                dict[input[0]][0] = input[1];
+                dict[input[0]][1] = input[2];
+            }
+            string[] command = Console.ReadLine().Split('|');
+            while (command[0] != "Stop")
+            {
+                if (command[0] == "Add")
+                {
+                    if (dict.ContainsKey(command[1]))
+                        Console.WriteLine($"{command[1]} is already in the collection!");
+                    else
+                    {
+                        dict[command[1]] = new string[2];
+                        dict[command[1]][0] = command[2];
+                        dict[command[1]][1] = command[3];
+                        Console.WriteLine($"{command[1]} by {command[2]} in {command[3]} added to the collection!");
+                    }
+                }
+                else if (command[0] == "Remove")
+                {
+                    if (dict.ContainsKey(command[1]))
+                    {
+                        dict.Remove(command[1]);
+                        Console.WriteLine($"Successfully removed {command[1]}!");
+                    }
+                    else
+                        Console.WriteLine($"Invalid operation! {command[1]} does not exist in the collection.");
+                }
+                else
+                {
+                    if (dict.ContainsKey(command[1]))
+                    {
+                        dict[command[1]][1] = command[2];
+                        Console.WriteLine($"Changed the key of {command[1]} to {command[2]}!");
+                    }
+                    else
+                        Console.WriteLine($"Invalid operation! {command[1]} does not exist in the collection.");
+                }
+                command = Console.ReadLine().Split('|');
+            }
+            foreach(var kvp in dict)
+            {
+                Console.WriteLine($"{kvp.Key} -> Composer: {kvp.Value[0]}, Key: {kvp.Value[1]}");
+            }
+        }
+    }
+}
