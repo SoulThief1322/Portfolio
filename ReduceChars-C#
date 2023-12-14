@@ -1,0 +1,2 @@
+List<char> output = Console.ReadLine().Where(x => Char.ToLower(x) != 'a' && Char.ToLower(x) != 'e' && Char.ToLower(x) != 'i' && Char.ToLower(x) != 'o' && Char.ToLower(x) != 'u').ToList();
+Console.WriteLine(String.Join("",output));
