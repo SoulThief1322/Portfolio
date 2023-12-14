@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using System.Runtime.ExceptionServices;
+using System.Text.RegularExpressions;
+
+namespace Objects_and_Classes
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = Console.ReadLine();
+            string command = "";
+            while(command != "Decode")
+            {
+                command = Console.ReadLine();
+                string[] com = command.Split('|');
+                if(com.Length == 2)
+                {
+                    for(int i  = 0; i < int.Parse(com[1]); i++)
+                    {
+                        input = input.Insert(input.Length, input[0].ToString());
+                        input = input.Remove(0,1);
+                        
+                    }
+                }
+                else if(com.Length == 3)
+                {
+                    if (com[0] == "Insert")
+                    {
+                        input = input.Insert(int.Parse(com[1]), com[2]);
+                    }
+                        
+                    else
+                    {
+                        input = input.Replace(char.Parse(com[1]), char.Parse(com[2]));
+                    }
+                }
+            }
+            Console.WriteLine($"The decrypted message is: {input}");
+        }
+    }
+}
