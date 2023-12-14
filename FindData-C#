@@ -1,0 +1,6 @@
+int lines = int.Parse(Console.ReadLine());
+for (int i = 0; i < lines; i++)
+{
+    string line = Console.ReadLine();
+    Console.WriteLine($"{line.Substring(line.IndexOf('@') + 1, line.IndexOf('|') - line.IndexOf('@') - 1)} is {line.Substring(line.IndexOf('#') + 1, line.IndexOf('*') - line.IndexOf('#') - 1)} years old.");
+}
