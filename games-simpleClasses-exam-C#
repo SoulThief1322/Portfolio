@@ -1,0 +1,72 @@
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int squadsCount = int.Parse(Console.ReadLine());
+            List<Squad> squadList = new List<Squad>();
+            for(int i = 0; i < squadsCount; i++)
+            {
+                var squadArr = Console.ReadLine().Split("-");
+                var squad = new Squad();
+                squad.Name = squadArr[1];
+                squad.Members = new List<string>();
+                squad.Members.Add(squadArr[0]);
+                if(squadList.Any(x => x.Name == squadArr[1]))
+                    Console.WriteLine("The squad name is already taken.");
+                else if(squadList.Any(x => x.Name == squadArr[0]))
+                    Console.WriteLine($"{squadArr[0]} cannot set up another squad.");
+                else
+                {
+                    Console.WriteLine($"{squadArr[0]} has successfully created a new squad: {squadArr[1]}");
+                    squadList.Add(squad);
+                }
+                
+            }
+            var input = Console.ReadLine().Split("/");
+            var detachedSquads = new List<string>();
+            while (input[0] != "end")
+            {
+                if (squadList.Any(x => x.Name == (input[1])))
+                {
+                    if (squadList.Any(x => x.Members.Contains(input[0])))
+                        Console.WriteLine("The player is already member of a squad.");
+                    else
+                    {
+                        foreach (var squad in squadList)
+                        {
+                            if (squad.Name == input[1])
+                                squad.Members.Add(input[0]);
+                        }
+                    }
+                }
+                else
+                    Console.WriteLine("The squad doesn't exist.");
+                input = Console.ReadLine().Split("/");
+            }
+            foreach(var squad in squadList)
+            {
+                if (squad.Members.Count == 1)
+                {
+                    squadList.Remove(squad);
+                    detachedSquads.Add(squad.Name);
+                    break;
+                }
+                    
+            }
+            foreach( var squad in squadList)
+            {
+                Console.WriteLine(squad.Name);
+                Console.WriteLine(string.Join(Environment.NewLine, squad.Members));
+            }
+            Console.WriteLine("Squads to detach:");
+            Console.WriteLine(string.Join(Environment.NewLine, detachedSquads));
+        }
+    }
+    public class Squad
+    {
+        public string Name { get; set; }
+        public List<string> Members { get; set; }
+    }
+}
