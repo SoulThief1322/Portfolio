@@ -1,0 +1,60 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace _7_
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary <string, string> parkPlaces = new Dictionary<string, string>();
+            int inputs = int.Parse(Console.ReadLine());
+
+            for(int i = 0; i < inputs; i++)
+            {
+
+                string [] commands = Console.ReadLine().Split(' ');
+                string command = commands[0];
+                string username =commands[1];
+
+                if(command == "register")
+                {
+                    string plates = commands[2];
+
+                    if (parkPlaces.ContainsKey(username))
+                    {
+                        Console.WriteLine($"ERROR: already registered with plate number {plates}");
+                    }
+                    else
+                    {
+                        parkPlaces[username] = plates;
+                        Console.WriteLine($"{username} registered {plates} successfully");
+                    }
+
+                }
+
+                else
+                {
+
+                    if (parkPlaces.ContainsKey(username))
+                    {
+                        parkPlaces.Remove(username);
+                        Console.WriteLine($"{username} unregistered successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"ERROR: user {username} not found");
+                    }
+
+                }
+
+            }
+
+            foreach(var kvp in parkPlaces)
+            {
+                Console.WriteLine($"{kvp.Key} => {kvp.Value}");
+            }
+        }
+    }
+}
