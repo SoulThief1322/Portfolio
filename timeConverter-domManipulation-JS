@@ -1,0 +1,31 @@
+function attachEventsListeners(){
+    let days = document.getElementById('days');
+    let hours = document.getElementById('hours');
+    let minutes = document.getElementById('minutes');
+    let seconds = document.getElementById('seconds');
+    let converter = document.querySelectorAll('input[type="button"]');
+    converter[0].addEventListener('click', dayListener);
+    function dayListener(){
+      hours.value = Number(days.value) * 24 ;
+      minutes.value = Number(days.value) * 1440;
+      seconds.value = Number(days.value) * 86400;
+    }
+    converter[1].addEventListener('click', hoursListener);
+    function hoursListener(){
+      days.value = Number(hours.value) / 24 ;
+      minutes.value = Number(days.value) * 1440;
+      seconds.value = Number(days.value) * 86400;
+    }
+    converter[2].addEventListener('click', minutesListener);
+    function minutesListener(){
+      days.value = Number(minutes.value) / 1440 ;
+      hours.value = Number(days.value) * 24;
+      seconds.value = Number(days.value) * 86400;
+    }
+    converter[3].addEventListener('click', secondsListener)
+    function secondsListener(){
+      days.value = Number(seconds.value) / 86400 ;
+      hours.value = Number(days.value) * 24;
+      minutes.value = Number(days.value) * 1440;
+    }
+}
