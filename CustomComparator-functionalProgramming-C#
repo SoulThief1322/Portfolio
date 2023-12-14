@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Immutable;
+using System.Linq;
+int[] arr = Console.ReadLine().Split().Select(int.Parse).ToArray();
+Predicate<int> even = n => n % 2 == 0;
+Predicate<int> odd = n => n % 2 != 0;
+int[] evenNums = new int[0];
+int[] oddNums = new int[0];
+foreach (int i in arr)
+{
+    if (even(i))
+    {
+        evenNums = evenNums.Append(i).ToArray();
+    }
+    else
+    {
+        oddNums = oddNums.Append(i).ToArray();
+    }
+}
+Array.Sort(evenNums);
+Array.Sort(oddNums);
+Console.WriteLine(string.Join(" ", evenNums) + " " + string.Join(" ", oddNums));
