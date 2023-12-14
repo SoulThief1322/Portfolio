@@ -1,0 +1,9 @@
+function notify(message){
+    let interval;
+    let notification = document.getElementById('notification');
+    notification.style.display = 'block';
+    notification.textContent = message;
+    interval = setTimeout(function time(){
+        notification.style.display = 'none';
+    }, 2000)
+}
