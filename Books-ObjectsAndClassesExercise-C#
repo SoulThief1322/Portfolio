@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+
+namespace Regex
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Book> books = new List<Book>();
+            string[] input = Console.ReadLine().Split(", ");
+            foreach(string line in input)
+            {
+                string[] split = line.Split("-");
+                Book book = new Book();
+                book.Name = split[0];
+                book.Author = split[1];
+                book.Pages = int.Parse(split[2]);
+                books.Add(book);
+            }
+            string title = Console.ReadLine();
+            foreach(Book book in books)
+            {
+                if(book.Name == title)
+                    Console.WriteLine($"Title: {book.Name} -> Written by: {book.Author} -> Volume: {book.Pages}");
+            }
+        }
+    }
+    public class Book
+    {
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public int Pages { get; set; }
+
+
+    }
+}
