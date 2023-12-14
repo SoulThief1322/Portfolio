@@ -1,0 +1,23 @@
+var dict = new SortedDictionary<string, HashSet<string>>();
+string course = "";
+while(course != "End")
+{
+    course = Console.ReadLine();
+    string[] courses = course.Split(" -> ");
+    if(courses.Length == 2)
+    {
+        if (!dict.ContainsKey(courses[0]))
+        {
+            dict[courses[0]] = new HashSet<string>();
+            dict[courses[0]].Add(courses[1]);
+        }
+        else
+            dict[courses[0]].Add(courses[1]);
+    }
+}
+foreach (var k in dict)
+{
+    Console.WriteLine($"{k.Key}");
+    foreach(var name in dict[k.Key])
+        Console.WriteLine($"-- {name}");
+}
