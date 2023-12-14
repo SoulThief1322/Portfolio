@@ -1,0 +1,28 @@
+var dict = new Dictionary<string, double[]>();
+string products = "";
+while(products != "buy")
+{
+    products = Console.ReadLine();
+    string[] prod = products.Split(" ");
+    if (prod.Length == 3)
+    {
+        
+        if (!dict.ContainsKey(prod[0]))
+        {
+            dict[prod[0]] = new double[2];
+            dict[prod[0]][0] = double.Parse(prod[1]);
+            dict[prod[0]][1] = double.Parse(prod[2]);
+        }
+        else
+        {
+            dict[prod[0]][0] = double.Parse(prod[1]);
+            dict[prod[0]][1] += double.Parse(prod[2]);
+        }
+    }
+   
+}
+foreach(var prod in dict.Keys)
+{
+    double d = dict[prod][1] * dict[prod][0];
+    Console.WriteLine($"{prod} -> {d:F2}");
+}
