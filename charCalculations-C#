@@ -1,0 +1,40 @@
+string[] input = Console.ReadLine().Split();
+int sum = 0;
+char[] first = input[0].ToCharArray();
+char[] second = input[1].ToCharArray();
+if (input[0].Length == input[1].Length)
+{
+    for (int i = 0; i < first.Length; i++)
+    {
+        sum += (int)first[i] * (int)second[i];
+    }
+}
+else if(first.Length > second.Length)
+{
+    for(int i = 0; i < first.Length; i++)
+    {
+        if(i >= second.Length)
+        {
+            sum += (int)first[i];
+        }
+        else
+        {
+            sum += (int)first[i] + (int)second[i];
+        }
+    }
+}
+else
+{
+    for (int i = 0; i < second.Length; i++)
+    {
+        if (i >= first.Length)
+        {
+            sum += (int)second[i];
+        }
+        else
+        {
+            sum += (int)first[i] + (int)second[i];
+        }
+    }
+}
+Console.WriteLine(sum);
