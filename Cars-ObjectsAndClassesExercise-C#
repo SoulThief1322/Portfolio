@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+
+namespace Regex
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Car> cars = new List<Car>();
+            string[] command = Console.ReadLine().Split('/');
+            while (command[0] != "end")
+            {
+                Car car = new Car();
+                car.Name = command[0];
+                car.Model = command[1];
+                car.Engine = command[2];
+                cars.Add(car);
+                command = Console.ReadLine().Split('/');
+            }
+            cars.Sort((x, y) => string.Compare(x.Name, y.Name));
+            foreach (Car car in cars)
+            {
+                Console.WriteLine($"Car - {car.Name} {car.Model} with engine {car.Engine}.");
+            }
+        }
+    }
+    public class Car
+    {
+        public string Name { get; set; }
+        public string Model { get; set; }
+        public string Engine { get; set; }
+
+
+    }
+}
