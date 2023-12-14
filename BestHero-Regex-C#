@@ -1,0 +1,33 @@
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+var heroes = Console.ReadLine().Split(", ", StringSplitOptions.RemoveEmptyEntries).ToList();
+string heroPattern = @"[A-Z|a-z]";
+string pointsPattern = @"[0-9]";
+string input = "";
+var dict = new Dictionary<string, int>();
+foreach (string hero in heroes)
+    dict[hero] = 0;
+while (input != "end")
+{
+    input = Console.ReadLine();
+    if (Regex.IsMatch(input, heroPattern) && Regex.IsMatch(input, pointsPattern))
+    {
+        MatchCollection heroMatch = Regex.Matches(input, heroPattern);
+        MatchCollection pointsMatch = Regex.Matches(input, pointsPattern);
+        string hero = "";
+        int totalVotes = 0;
+        foreach (Match m in heroMatch)
+            hero += m;
+        foreach (Match m in pointsMatch)
+            totalVotes += int.Parse(m.ToString());
+        if (heroes.Contains(hero))
+        {
+            dict[hero] += totalVotes;
+        }
+    }
+}
+var biggest = new List<string>();
+int i = 0;
+dict = dict.OrderByDescending(x => x.Value).Take(3).ToDictionary(x => x.Key, x => x.Value);
+
+    Console.WriteLine(string.Join("\n", dict.Keys));
