@@ -1,4 +1,4 @@
-using Newspaper;
+using System;
 
 namespace ConsoleApp9
 {
