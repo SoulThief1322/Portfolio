@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
+
+namespace ConsoleApp2
+{
+    public class CustomStack<T>
+    {
+        private T[] items;
+        private Stack<T> stack;
+        public int count;
+        public int Count
+        {
+            get { return count; }
+            private set { count = value; }
+        }
+        private const int INITIAL_CAPACITY = 4;
+        
+        public CustomStack()
+        {
+            stack = new Stack<T>(INITIAL_CAPACITY);
+            items = new T[INITIAL_CAPACITY];
+            
+            count = 0;
+        }
+        public void Push(T item)
+        {
+            stack.Push(item);
+            if (items.Count(S => S != null) == items.Length)
+            {
+                Array.Resize(ref items,items.Length * 2);
+            }
+            items[items.Count(S => S != null)] = item;
+            count++;
+        }
+        public T Pop()
+        {
+            if(count == 0)
+            {
+                throw new Exception("Stack is empty. Please Insert items!");
+            }
+            count--;
+            return stack.Pop();
+        }
+        public T Peek()
+        {
+            if (count == 0)
+            {
+                throw new Exception("Stack is empty. Please Insert items!");
+            }
+            return stack.Peek();
+            
+
+        }
+    }
+}
