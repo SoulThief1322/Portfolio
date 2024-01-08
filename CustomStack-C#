@@ -29,11 +29,12 @@ namespace ConsoleApp2
         public void Push(T item)
         {
             stack.Push(item);
-            if (items.Count(S => S != null) == items.Length)
+
+            if (items.Count(S => S != null && string.Equals(S, 0) != true) == items.Length)
             {
                 Array.Resize(ref items,items.Length * 2);
             }
-            items[items.Count(S => S != null)] = item;
+            items[items.Count(S => S != null && string.Equals(S, 0) != true)] = item;
             count++;
         }
         public T Pop()
