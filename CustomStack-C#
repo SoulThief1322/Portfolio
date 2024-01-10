@@ -43,7 +43,8 @@ namespace ConsoleApp2
                 throw new Exception("Stack is empty. Please Insert items!");
             }
             returnedItem = items[count - 1];
-            Array.Copy(items, items, count - 2);
+            if(count > 1) {Array.Copy(items, items, count - 2); }
+            else { Array.Copy(items, items, count - 1); }
             count--;
             return returnedItem;
         }
