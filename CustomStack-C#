@@ -44,7 +44,7 @@ namespace ConsoleApp2
             }
             returnedItem = items[count - 1];
             if(count > 1) {Array.Copy(items, items, count - 2); }
-            else { Array.Copy(items, items, count - 1); }
+            else { items = Array.Empty<T>(); }
             count--;
             return returnedItem;
         }
