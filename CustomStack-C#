@@ -29,7 +29,7 @@ namespace ConsoleApp2
         public void Push(T item)
         {
 
-            if (items.Count(S => S != null && string.Equals(S, 0) != true) == items.Length) //stava i s "count - 1 == items.length"
+            if (items.Count(S => S != null && string.Equals(S, 0) != true) == items.Length)
             {
                 Array.Resize(ref items, items.Length * 2);
             }
