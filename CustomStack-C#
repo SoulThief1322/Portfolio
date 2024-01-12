@@ -33,7 +33,7 @@ namespace ConsoleApp2
             {
                 Array.Resize(ref items, items.Length * 2);
             }
-            items[items.Count(S => S != null && string.Equals(S, 0) != true)] = item; //stava i s "count - 1 == items.length"
+            items[items.Count(S => S != null && string.Equals(S, 0) != true)] = item; //stava i s "count - 1"
             count++;
         }
         public T Pop()
