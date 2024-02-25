@@ -1,0 +1,5 @@
+select mc.CountryCode, m.MountainRange,p.PeakName,p.Elevation FROM [Geography].[dbo].[MountainsCountries] MC 
+JOIN [Geography].[dbo].[Mountains] AS m on m.Id = mc.MountainId
+join [Geography].[dbo].[Peaks] AS p on p.MountainId = mc.MountainId AND p.Elevation > 2835
+WHERE mc.CountryCode = 'BG'
+ORDER BY p.Elevation DESC
