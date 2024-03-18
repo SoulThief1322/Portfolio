@@ -1,0 +1,61 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
+using ConsoleApp4;
+using System;
+using NUnit.Framework.Legacy;
+
+namespace UnitTestProject1
+{
+    [TestFixture]
+    public class UnitTest1
+    {
+        [Test]
+        public void TestConstructor()
+        {
+            ClassicAssert.That(() => { Database data = new Database(new int[17]); },Throws.InstanceOf<InvalidOperationException>()); 
+        }
+        [Test]
+        public void TestAddMethod()
+        {
+            Database data = new Database(new int[16]);
+            ClassicAssert.That(() => { data.Add(5); }, Throws.InstanceOf<InvalidOperationException>());
+
+        }
+        [Test]
+        public void TestAdd()
+        {
+            Database data2 = new Database(new int[14]);
+            data2.Add(5);
+            var masiv = data2.Fetch();
+            ClassicAssert.That(masiv[data2.Count - 1].Equals(5));
+            
+        }
+        [Test]
+        public void TestRemoveMethod()
+        {
+            Database data2 = new Database(new int[]{1,2,3,4,5});
+            var posl = data2.Fetch()[data2.Count - 1];
+            data2.Remove();
+            var masiv = data2.Fetch();
+            ClassicAssert.That(masiv[data2.Count - 1], !Is.EqualTo(posl));
+            Database data = new Database(new int[0]);
+            ClassicAssert.That(() => { data.Remove(); }, Throws.InstanceOf<InvalidOperationException>());
+        }
+        [Test]
+        public void TestFetch()
+        {
+            var data = new Database(new int[] {1,2,3,4,5});
+            ClassicAssert.That(data.Fetch(), Is.InstanceOf<Array>());
+        }
+        [Test]
+        public void TestConstructorTypeOfInput()
+        {
+            var masiv = new Database(new int[] {1,3,4,5}).Fetch();
+            var data = new Database(new int[13]);
+            data.Add('d');
+
+            ClassicAssert.That(() => { var data = new Database(new string[] { "5", "6" }) }, Throws.InstanceOf<InvalidOperationException>());
+
+        }
+    }
+}
